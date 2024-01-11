@@ -1,4 +1,6 @@
 import org.junit.jupiter.api.Test;
+import models.Student;
+import pages.RegistrationPage;
 
 public class DemoQAFullFormTest extends TestBase {
     @Test

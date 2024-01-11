@@ -1,3 +1,5 @@
+package models;
+
 public class Student {
 
     public String name, lastName, email, gender, phone, monthOfBirth, dayOfBirth, picture, address, state, city;

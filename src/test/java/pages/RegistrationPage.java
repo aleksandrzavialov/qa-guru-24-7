@@ -1,5 +1,9 @@
+package pages;
+
 import com.codeborne.selenide.SelenideElement;
-import components.CalendarComponent;
+import models.Student;
+import pages.components.CalendarComponent;
+
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
