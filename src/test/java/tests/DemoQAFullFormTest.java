@@ -1,32 +1,24 @@
 package tests;
 
+import data.StudentData;
 import org.junit.jupiter.api.Test;
 import models.Student;
 import pages.RegistrationPage;
+import pages.components.ResultTableComponent;
+
 
 public class DemoQAFullFormTest extends TestBase {
+    RegistrationPage registrationPage = new RegistrationPage();
+    ResultTableComponent resultTable = new ResultTableComponent();
     @Test
     void successfulRegisterFullDataTest() {
-        String name = "Anna";
-        String lastName = "Ivanova";
-        String email = "aivanova@mail.ru";
-        String gender = "Female";
-        String phone = "9999123456";
-        int yearOfBirth = 2001;
-        String monthOfBirth = "March";
-        String dayOfBirth = "27";
-        String[] subjects = new String[]{"Maths", "Economics"};
-        String[] hobbies = new String[]{"Reading", "Music"};
-        String picture = "Capibara.jpg";
-        String address = "Lenina 169 - 228";
-        String state = "Uttar Pradesh";
-        String city = "Merrut";
 
-        Student student = new Student(name, lastName, email, gender, phone, yearOfBirth, monthOfBirth, dayOfBirth,
-                subjects, hobbies, picture, address, state, city);
+        Student student = new Student(StudentData.name, StudentData.lastName, StudentData.email, StudentData.gender,
+                StudentData.phone, StudentData.yearOfBirth, StudentData.monthOfBirth, StudentData.dayOfBirth,
+                StudentData.subjects, StudentData.hobbies, StudentData.picture, StudentData.address, 
+                StudentData.state, StudentData.city);
 
         //Preconditions
-        RegistrationPage registrationPage = new RegistrationPage();
         registrationPage.openPage();
 
         //Form filling
@@ -34,40 +26,33 @@ public class DemoQAFullFormTest extends TestBase {
         registrationPage.submitResult();
 
         //Checking submit results
-        registrationPage.checkResultTableUI().
+        resultTable.checkResultTableUI().
                 checkAllStudentFields(student);
     }
 
     @Test
     void successfulRegisterMinimalDataTest() {
-        String name = "Anna"; //
-        String lastName = "Ivanova";
-        String gender = "Female";
-        String phone = "9999123456";
-        int yearOfBirth = 2001;
-        String monthOfBirth = "March";
-        String dayOfBirth = "27";
 
         //Preconditions
-        RegistrationPage registrationPage = new RegistrationPage();
         registrationPage.openPage();
 
         //Form filling
-        registrationPage.setFirstName(name).
-                setLastName(lastName).
-                setGender(gender).
-                setUserNumber(phone).
-                setDateOfBirth(dayOfBirth, monthOfBirth, yearOfBirth);
+        registrationPage.setFirstName(StudentData.name).
+                setLastName(StudentData.lastName).
+                setGender(StudentData.gender).
+                setUserNumber(StudentData.phone).
+                setDateOfBirth(StudentData.dayOfBirth, StudentData.monthOfBirth, StudentData.yearOfBirth);
 
         registrationPage.submitResult();
 
         //Checking submit results
-        registrationPage.checkResultTableUI().
-                checkResult("Student Name", name + " " + lastName).
+        resultTable.checkResultTableUI().
+                checkResult("Student Name", StudentData.name + " " + StudentData.lastName).
                 checkResult("Student Email", " ").
-                checkResult("Gender", gender).
-                checkResult("Mobile", phone).
-                checkResult("Date of Birth", dayOfBirth + " " + monthOfBirth + "," + yearOfBirth).
+                checkResult("Gender", StudentData.gender).
+                checkResult("Mobile", StudentData.phone).
+                checkResult("Date of Birth",
+                        StudentData.dayOfBirth + " " + StudentData.monthOfBirth + "," + StudentData.yearOfBirth).
                 checkResult("Subjects", " ").
                 checkResult("Hobbies", " ").
                 checkResult("Picture", " ").
@@ -78,27 +63,20 @@ public class DemoQAFullFormTest extends TestBase {
 
     @Test
     void unsuccessfulRegisterNoGenderEnteredTest() {
-        String name = "Anna"; //
-        String lastName = "Ivanova";
-        String phone = "9999123456";
-        int yearOfBirth = 2001;
-        String monthOfBirth = "March";
-        String dayOfBirth = "27";
 
         //Preconditions
-        RegistrationPage registrationPage = new RegistrationPage();
         registrationPage.openPage();
 
         //Form filling
-        registrationPage.setFirstName(name).
-                setLastName(lastName).
-                setUserNumber(phone).
-                setDateOfBirth(dayOfBirth, monthOfBirth, yearOfBirth);
+        registrationPage.setFirstName(StudentData.name).
+                setLastName(StudentData.lastName).
+                setUserNumber(StudentData.phone).
+                setDateOfBirth(StudentData.dayOfBirth, StudentData.monthOfBirth, StudentData.yearOfBirth);
 
         registrationPage.submitResult();
 
         //Checking submit results
-        registrationPage.checkTableIsNotVisible();
+        resultTable.checkTableIsNotVisible();
 
     }
 
